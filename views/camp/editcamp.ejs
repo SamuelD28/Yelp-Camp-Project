@@ -1,0 +1,168 @@
+<!--    Auteur: Samuel Dubé
+        Date de création: 2018/01/02
+        Date dernière modification: 2018/01/08
+        Description: Page web pour modifier un camp existant.
+-->
+
+<!DOCTYPE html>
+
+<html lang="fr">
+    <% include ../partials/header %>
+    <body>
+        <section class="container-fluid" id="login-container">
+        <!--Back button-->
+        <a href="/home/<%= camp._id %>">
+            <button class="btn btn-outline-primary btn-lg btn-fixed"><i class="icon left chevron"></i> Back</button>
+        </a>
+        <!--End button-->
+        <div class="col-8 mx-auto text-center">
+        	<div class="container-fluid">
+            <form action="/home/<%= camp._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+                <h1 class="">Edit camp</h1>
+                <hr/>
+                <!--Information Form-->
+                <div class="row">
+                    <div class="col-3 form-container" style="border-right: 1px solid #d9d9d9;">
+                        <h2 class="form-title">Information</h2>
+                    </div>
+                    <div class="col-9">
+                        <div class="row">
+                            <div class="col-5">
+                                <input name="camp[information.name]" type="text" class="form-control" value="<%= camp.information.name %>">
+                            </div>
+                        </div>
+                        <div class="row form-input">
+                            <div class="col-4">
+                                <select name="camp[information.typeCamping]" class="form-control">
+                                    <option selected disable hidden><%= camp.information.typeCamping %></option>
+                                    <option>Rv</option>
+                                    <option>Resort</option>
+                                    <option>Wilderness</option>
+                                </select>
+                            </div>
+                            <div class="col-1">
+                                <div class="ui icon button" data-tooltip="What the camp revolve around" data-position="right center">
+                                      <i class="icon large blue help circle"></i>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <input name="camp[information.minprice]" type="number" class="form-control" value="<%= camp.information.minprice %>">
+                            </div>
+                            <div class="col-3">
+                                <input name="camp[information.maxprice]" type="number" class="form-control" value="<%= camp.information.maxprice %>">
+                            </div>
+
+                            <div class="col-1">
+                                <div class="ui icon button" data-tooltip="$ Estimate of the price range" data-position="right center">
+                                      <i class="icon large blue help circle"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-input">
+                            <div class="col-3 form-month">
+                                <select name="camp[information.openmonth]" class="form-control">
+                                    <option selected disable hidden><%= camp.information.openmonth %></option>
+                                    <!--Include month selection-->
+                                    <% include ../partials/monthform %>
+                                </select>
+                            </div>
+                            <div class="col-2 form-day">
+                                <input name="camp[information.openday]" type="number" class="form-control" value="<%= camp.information.openday %>">
+                            </div>
+                            <div class="col-3 form-month offset-1">
+                                <select name="camp[information.closemonth]" class="form-control">
+                                    <option selected disable hidden><%= camp.information.closemonth %></option>
+                                    <!--Include month selection-->
+                                    <% include ../partials/monthform %>
+                                </select>
+                            </div>
+                            <div class="col-2 form-day">
+                                <input name="camp[information.closeday]" type="number" class="form-control" value="<%= camp.information.closeday %>">
+                            </div>
+                            <div class="col-1">
+                                <div class="ui icon button" data-tooltip="Open season of the camp" data-position="right center">
+                                      <i class="icon large blue help circle"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <textarea name="camp[information.desc]" rows="15" type="textarea" class="form-control"><%= camp.information.desc %></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--End Information-->
+
+                <!--Contact Form-->
+                <div class="row pt-4">
+                    <div class="col-3 form-container" style="border-right: 1px solid #d9d9d9;">
+                        <h2 class="form-title">Contact</h2>
+                    </div>
+                    <div class="col-9">
+                        <div class="row form-input">
+                            <div class="col-7 input-group">
+                                <div class="input-group-addon">@</div>
+                                <input name="camp[contact.email]" type="email" class="form-control" value="<%=camp.contact.email%>">
+                            </div>
+                            <div class="col-5">
+                                <input name="camp[contact.phone]" type="text" class="form-control" value="<%=camp.contact.phone%>">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-7 input-group mr-auto">
+                                <div class="input-group-addon">https://</div>
+                                <input name="camp[contact.website]" type="text" class="form-control" value="<%=camp.contact.website%>*">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--End Contact-->
+
+                <!--Location Form-->
+                <div class="row pt-4">
+                    <div class="col-3 form-container" style="border-right: 1px solid #d9d9d9;">
+                        <h2 class="form-title">Location</h2>
+                    </div>
+                    <div class="col-9">
+                        <div class="row form-input">
+                            <div class="col-4">
+                                <input name="camp[location.country]" class="form-control" type="text" value="<%= camp.location.country %>">
+                            </div>
+                            <div class="col-4">
+                                <input name="camp[location.state]" class="form-control" type="text" value="<%= camp.location.state %>">
+                            </div>
+                            <div class="col-4">
+                                <input name="camp[location.city]" class="form-control" type="text" value="<%= camp.location.city %>">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-7">
+                                <input name="camp[location.street]" class="form-control" type="text" value="<%= camp.location.street %>">
+                            </div>
+                            <div class="col-5">
+                                <input name="camp[location.postal]" class="form-control" type="text" value="<%= camp.location.postal %>">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--End Location-->
+
+                <!--Save Button-->
+                <div class="pt-4">
+                <a data-toggle="modal" data-target="#confirm"><button class="btn btn-outline-danger col-3">Remove<i class="icon trash"></i></button></a>
+                <button type="submit" class="btn btn-outline-primary col-3 float-right">Save <i class="icon save"></i></button>
+                </div>
+                <!--End save Button-->
+            </form>
+            
+            <% include ../partials/confirmDelete %>
+            
+            </div>
+        </div>
+        </section>
+        <!--Social and newsletter-->
+        <% include ../partials/footer %>
+        <% include ../partials/script %>
+    </body>
+</html>

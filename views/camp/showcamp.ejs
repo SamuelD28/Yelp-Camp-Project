@@ -1,0 +1,249 @@
+<!--    Auteur: Samuel Dubé
+        Date de création: 2018/01/02
+        Date dernière modification: 2018/01/08
+        Description: Page Web simillaire à Yelp mais portant sur les camps
+        en plein air.
+-->
+<!DOCTYPE html>
+
+<html lang="fr">
+    <% include ../partials/header %>
+    <body>
+        <div class="camp-banner" style="background-image: url('/camp/<%=camp.information.img[0]%>');">
+        </div>
+        
+        <!--Menu-->
+        <% include ../partials/nav %>
+        <!--End Menu-->
+        
+        <!--Presentation Section-->
+        <section class="container-fluid">
+            <div class="col-11 mx-auto pt-4">
+                <div class="row">
+                    <!--Description-->
+                    <div class="col-6">
+                        <h1>
+                            <%= camp.information.name%>
+                            <% if(user && user.username === camp.information.author) { %>
+                                <a href="/home/<%=camp.id %>/edit">
+                                <button class="btn btn-outline-warning float-right">Edit <i class="icon edit"></i></button>
+                                </a>
+                            <% } %>
+                        </h1>
+                        <p class="promotion-description"><%= camp.information.desc %></p>
+                    </div>
+                    <!--Carousel-->
+                    <div class="col-6">
+                        <div id="demo" class="carousel slide" data-ride="carousel">
+                            <!--Indicator-->
+                            <ul class="carousel-indicators">
+                                <li data-target="#control" data-slide-to="0" class="active"></li>
+                                <% for(var i = 1 ; i < camp.information.img.length ; i++){ %>
+                                    <li data-target="#control" data-slide-to="<%= i %>"></li>
+                                <% } %>
+                            </ul>
+                            <!--Preview tumbnail-->
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                  <img class="test img-fluid" src="/camp/<%= camp.information.img[0] %>" alt="Los Angeles">
+                                </div>
+                                <% for(var i = 1 ; i < camp.information.img.length ; i++){ %>
+                                <div class="carousel-item">
+                                    <img class="test img-fluid" src="/camp/<%= camp.information.img[i] %>" alt="Los Angeles">
+                                </div>
+                                <% } %> 
+                            </div>
+                            
+                            <a class="carousel-control-prev" href="#control" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon"></span>
+                            </a>
+                            <a class="carousel-control-next" href="#control" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row pt-5">
+                    <div class="col-6 ">
+                        <!--Information table-->
+                        <table class="table">
+                            <thead>
+                                <tr><th colspan="2"><h4>Information</h4></th></tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><h5>Rating</h5></td>
+                                    <td>
+                                    <div class="ui large star rating" data-rating="4"></div>
+                                    <a class="float-right" href="#review">See reviews <i class="icon down chevron"></i></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><h5>Price Range <i class="icon dollar"></i></h5></td>
+                                    <td>
+                                    <b><%= camp.information.minprice %>$ to <%= camp.information.maxprice%>$</b>
+                                    <a class="float-right" href="#">More info <i class="icon external link"></i></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><h5>Type</h5></td>
+                                    <td><b><%= camp.information.typeCamping %></b></td>
+                                </tr>
+                                <tr>
+                                    <td><h5>Season <i class="icon calendar"></i></h5></td>
+                                    <td><b><%= camp.information.openmonth %>, <%= camp.information.openday%> to <%= camp.information.closemonth %>, <%= camp.closeday%></b></td>
+                                </tr>
+                                <tr>
+                                    <td><h5>Created by <i class="icon user"></i></h5></td>
+                                    <td><b><%=camp.information.author%></b></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!--Call to action button-->
+                        <a data-toggle="modal" data-target="#phone"><button class="btn btn-outline-info btn-lg"><i class="icon phone"></i> Call</button></a>
+                        <a target="_blank" href="https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Accueil_principal"><button class="btn btn-outline-info btn-lg"><i class="icon globe"></i> Website</button></a>
+                        </a><button class="btn btn-outline-info btn-lg"><i class="icon car"></i> Visit</button></a>
+                    </div>
+                    <div class="col-6">
+                        <!--Ads spot-->
+                        <div style="width: 100%; background: #eef3ef; height: 100%;">
+                            <h1 class="text-center pt-5">Ads Spot</h1>
+                        </div>
+                    </div class="row">
+                        <!--Google map-->
+                        <div class="col-12">
+                            <iframe
+                            class="pt-5"
+                            width="100%"
+                            height="450"
+                            frameborder="0" style="border:0"
+                            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCuaana7xv_I-UaI11iJWb23u4vsvZckAc
+                            &q=<%=camp.location.country%>,<%=camp.location.city%>" allowfullscreen>
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--End Presentation-->
+
+        <div class="modal fade" id="phone" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h4><%= camp.contact.phone %></h4>
+                        <hr />
+                        <h6>Schedule</h6>
+                        <p>Monday : 9h00 am - 17h00 pm</p>
+                        <p>Thuesday : 9h00 am - 17h00 pm</p>
+                        <p>Wednesday : 9h00 am - 17h00 pm</p>
+                        <p>Thursday : 9h00 am - 17h00 pm</p>
+                        <p>Friday : 9h00 am - 17h00 pm</p>
+                        <p>Saturday : 9h00 am - 17h00 pm</p>
+                        <p>Sunday : 9h00 am - 17h00 pm</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Review and comments-->
+        <section class="container-fluid" id="review">
+            <div class="col-11 mx-auto pt-4">
+                <div class="row">
+                    <!--Reviews and comment-->
+                    <div class="col-8">
+                        <div class="ml-4">
+                            <h2 class="text-center">Ratings</h2>
+                            <hr />
+                                <div class="row  text-center">
+                                    <div class="col-12">
+                                        <div class="ui massive star rating" data-rating="5"></div>
+                                        <span>80%</span>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="ui massive star rating" data-rating="4"></div>
+                                        <span>70%</span>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="ui massive star rating" data-rating="3"></div>
+                                        <span>60%</span>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="ui massive star rating" data-rating="2"></div>
+                                        <span>50%</span>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="ui massive star rating" data-rating="1"></div>
+                                        <span>40%</span>
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="ml-4">
+                            <ul class="nav nav-tabs comment-nav" role="tablist">
+                              <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#comments" role="tab">Comments</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#add" role="tab">Add a review</a>
+                              </li>
+                            </ul>
+                            <div class="tab-content">
+                                <!--Comments-->
+                                <div id="comments" class="container-fluid mt-2 tab-pane active">
+                                    <% camp.comments.forEach(function(review){ %>
+                                    <div class="row comment-information">
+                                        <div class="col-3">
+                                            <div class="text-center comment-avatar">
+                                                <img src="/avatar/<%= review.avatar %>" class="img-fluid">
+                                            </div>
+                                        </div>
+                                        <div class="col-9 float-right">
+                                            <div class="">
+                                                <div class="ui large star rating" data-rating="4"></div>
+                                                <span class="float-right"><b><em><%= review.date.toDateString() %></em></b></span>
+                                                <p> <%= review.comment %> </p>
+                                                <p>-<%= review.author %></p>
+                                                <button class="btn btn-outline-info">Reply <i class="icon reply"></i></button>
+                                                <button class="btn btn-outline-info">Profile <i class="icon user"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <% }) %>
+                                </div>
+                                <!--Publish Review-->
+                                <div id="add" class="tab-pane">
+                                    <% if(user) { %>
+                                    <form action="/home/<%= camp.id %>/newcomment" method="POST">
+                                        <div class="form-input">
+                                            <textarea name="comment" rows="10" placeholder="Review" class="form-control" required="required"></textarea>
+                                        </div>
+                                        <button type="submit" class="btn btn-outline-secondary">Publish <i class="icon add"></i></button>
+                                    </form>
+                                    <% }else{ %>
+                                    <h4>Login to your account to leave a review on this camp</h4>
+                                    <a href="#" class="nav-link" data-toggle="modal" data-target="#login"><button class="btn btn-primary">Login <i class="icon sign in"></button></i></a>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--See other camp-->
+                    <div class="col-4">
+                        <h1>See Also</h1>
+                        <div class="row" style="background: grey;">
+                            <div class="col-4" style="background: green; height: 150px;">
+                                
+                            </div>
+                            <div class="col-8" style="background: steelblue;">
+                             
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--End review and comments-->
+    </body>
+    <% include ../partials/footer %>
+    <% include ../partials/script %>
+</html>

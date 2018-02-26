@@ -1,0 +1,129 @@
+<!--    Auteur: Samuel Dubé
+        Date de création: 2018/01/02
+        Date dernière modification: 2018/01/08
+        Description: Site Web simillaire à Yelp mais portant sur les camps
+        en plein air.
+-->
+
+<!DOCTYPE html>
+<html lang="fr">
+    <% include partials/header %>
+    <body>
+        
+        <!--Banner Section-->
+        <% include partials/banner %>
+        <!--End Banner-->
+        
+        <!--Nav Menu-->
+        <% include partials/nav %>
+        <!--End Menu-->
+
+        <!--Trending Section-->
+        <section class="container-fluid pt-5">
+            <div class="col-11 mx-auto text-center">
+                <h1>Trending camp this week</h1>
+                <hr />
+                <div class="row no-gutters">
+                    <!--<i class="icon left chevron"></i>-->
+                    <% camp.forEach(function(camp){ %>
+                    <div class="col-lg-3 col-md-4">
+                        <div class="trending-container">
+                            <div class="trending-image" style="background-image: url('camp/<%= camp.information.img[0] %>');">
+                                <div class="trending-label">
+                                    <%= camp.information.typeCamping %> <i class="icon hotel"></i>
+                                </div>
+                            <!--<img src="" class="img-fluid camp-img">-->
+                            </div>
+                            <div class="trending-information">
+                                <h4 class="trending-title"><%= camp.information.name %></h4>
+                                <div class="ui large star rating" data-rating="3"></div>
+                                <p class="trending-details">
+                                    <span class="float-left"><i class="icon dollar"></i><%=camp.information.minprice%>$-<%=camp.information.maxprice %>$</span>
+                                    <span style="opacity:0;"> /</span>
+                                    <span class="float-right"><i class="icon marker"></i><%=camp.location.state%>,<%= camp.location.country %> </span>
+                                </p>
+                                <p class="trending-description">
+                                <%= camp.information.desc.substring( 0 , 150); %>...
+                                </p>
+                                <a href="/home/<%=camp._id%>"><button class="btn btn-outline-info"><i class="icon tree"></i>See Camp</button></a>
+                            </div>
+                        </div>
+                    </div>
+                    <% }) %>
+                </div>
+            </div>
+        </section>
+        <!--End trending-->
+
+        <!--Promotion Section-->
+        <section class="pt-5">
+            <div class="container-fluid promotion" style="background-image: url('camp11.jpg');">
+                <div class="col-8 mx-auto">
+                    <div class="row promotion-container">
+                        <div class="col-4 promotion-img" style="background-image: url('camp12.jpg');">
+                        </div>
+                        <div class="col-8">
+                            <h1>Salmon Creek <div class="ui orange big tag label">Staff Pick</div></h1>
+                            <div class="ui large star rating" data-rating="5"></div>
+                            <p class="promotion-description">Located in a beautifull mountain landscape, salmon creek is campground where you can truly free
+                            your mind. With competitive pricing and an awesome customer service, this camp is our staff choice for this week.</p>
+                            <button class="btn btn-outline-info"><i class="icon tree"></i> See Camp</button>
+                            <button class="btn btn-outline-info"><i class="icon globe"></i> Go to website</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--End promotion-->
+
+        <!--Shop section-->
+        <section class="container-fluid pt-4">
+            <div class="col-11 mx-auto text-center">
+            <h1 class="text-center">Shop</h1>
+            <hr />
+            <div class="row">
+                <% for(var i = 0 ; i<=3 ; i++){ %> 
+                <div class="col-lg-3 col-md-3 ">
+                    <div class="shop-item-container">
+                        <div class="shop-image-card" style="background-image: url('/shop/shop2.jpg');">
+                            <a class="ui left large red corner label">
+                                <i class="icon heart"></i>
+                            </a>
+                        </div>
+                        <div class="shop-info">
+                            <h4 class="shop-title">MEC Cabin 6 Tent<div class="ui mini star rating float-right" data-rating="4"></div></h4>
+                            <div class="shop-price">
+                                <span class="price-discount">49.99$</span><span class="discount">-30%</span>
+                                <p class="price-regular">89.99$</p>
+                            </div>
+                        </div>
+                        <a href="/home/"><button class="btn btn-outline-info shop-btn-left"><i class="icon leaf"></i>See Product</button></a>
+                        <a><button class="btn btn-outline-info shop-btn-right"><i class="icon add"></i></button></a>
+                    </div>
+                </div>
+                <% } %>
+            </div>
+        </section>
+        <!--End Shop-->
+        
+        <!--Section newsletter-->
+        <section class="container-fluid pt-5">
+            <div class="row text-center new-container">
+                <div class="col-6">
+                    <h2>Subscribe to the newsletter!</h2>
+                </div>
+                <form class="col-6">
+                    <div class="row">
+                        <input type="text" class="form-control col-8" placeholder="Your Email">
+                        <button type="submit" class="btn btn-outline-secondary col-3">Subscribe</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+        <!--End newsletter-->
+        
+    </body>
+    <!--footer-->
+    <% include partials/footer %>
+    <% include partials/script %>
+</html>

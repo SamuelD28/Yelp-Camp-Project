@@ -1,0 +1,19 @@
+<!--Modal to confirmed delete-->
+    <div class="modal fade" id="confirm" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Are you sure you want to remove this camp?</h4>
+                </div>
+                <div class="modal-body">
+                    <!--Delete button-->
+                        <button data-dismiss="modal" class="btn btn-outline-danger float-left"><i class="icon remove"></i></button>
+                        <form action="/home/<%= camp._id %>?_method=DELETE" method="POST">
+                    		<button type="submit" class="btn btn-outline-success float-right"><i class="icon checkmark"></i>Continue</button>
+                        </form>
+                    <!--End Delete-->
+                </div>
+            </div>
+        </div>
+    </div>
+<!--End Modal-->

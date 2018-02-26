@@ -1,0 +1,167 @@
+<!--    Auteur: Samuel Dubé
+        Date de création: 2018/01/02
+        Date dernière modification: 2018/01/08
+        Description: Forme pour ajouter un nouveau camp au site web.
+-->
+
+<!DOCTYPE html>
+
+<html lang="fr">
+    <% include ../partials/header %>
+    <body>
+        <section class="container-fluid" id="login-container">
+        <!--Back button-->
+        <a href="/home">
+            <button class="btn btn-outline-primary btn-lg btn-fixed"><i class="icon left chevron"></i> Back</button>
+        </a>
+            <div class="col-8 mx-auto text-center">
+                <form class="container-fluid" action="/home/newcamp" method="POST" enctype="multipart/form-data">
+                    <h1 class="">New camp</h1>
+                    <hr/>
+
+                    <!--Information Form-->
+                    <div class="row">
+                        <div class="col-3 form-container" style="border-right: 1px solid #d9d9d9;">
+                            <h2 class="form-title">Information</h2>
+                        </div>
+                        <div class="col-9">
+                            <div class="row">
+                                <div class="col-5">
+                                    <input name="camp[information.name]" type="text" class="form-control" placeholder="Camp name" >
+                                </div>
+                                <div class="col-6">
+                                    <input name="camp[information.img]" multiple="multiple" type="file" class="form-control" placeholder="Image" >
+                                </div>
+                                <div class="col-1">
+                                    <div class="ui icon button" data-tooltip="Add images of the camp" data-position="right center">
+                                          <i class="icon large blue help circle"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-input">
+                                <div class="col-4">
+                                    <select name="camp[information.typeCamping]" class="form-control" >
+                                        <option selected disable hidden>Type of camping</option>
+                                        <option>Rv</option>
+                                        <option>Resort</option>
+                                        <option>Wilderness</option>
+                                    </select>
+                                </div>
+                                <div class="col-1">
+                                    <div class="ui icon button" data-tooltip="What the camp revolve around" data-position="right center">
+                                          <i class="icon large blue help circle"></i>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <input name="camp[information.minprice]" type="number" class="form-control" placeholder="$$ min" >
+                                </div>
+                                <div class="col-3">
+                                    <input name="camp[information.maxprice]" type="number" class="form-control" placeholder="$$ max" >
+                                </div>
+
+                                <div class="col-1">
+                                    <div class="ui icon button" data-tooltip="$ Estimate of the price range" data-position="right center">
+                                          <i class="icon large blue help circle"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Season Opened-->
+                            <div class="row form-input">
+                                <div class="col-3 form-month">
+                                    <select name="camp[information.openmonth]" class="form-control" >
+                                        <option selected disable hidden>Opened from</option>
+                                        <% include ../partials/monthform %>
+                                    </select>
+                                </div>
+                                <div class="col-2 form-day">
+                                    <input name="camp[information.openday]" type="number" class="form-control" placeholder="day" >
+                                </div>
+                                <div class="col-3 form-month offset-1">
+                                    <select name="camp[information.closemonth]" class="form-control" >
+                                        <option selected disable hidden>Closed in</option>
+                                        <% include ../partials/monthform %>
+                                    </select>
+                                </div>
+                                <div class="col-2 form-day">
+                                    <input name="camp[information.closeday]" type="number" class="form-control" placeholder="day" >
+                                </div>
+                                <div class="col-1">
+                                    <div class="ui icon button" data-tooltip="Open season of the camp" data-position="right center" >
+                                          <i class="icon large blue help circle"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--End Season-->
+                            <div class="row">
+                                <div class="col-12">
+                                    <textarea name="camp[information.desc]" rows="15" type="textarea" class="form-control" placeholder="Description max 500 caracters." ></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End Information-->
+
+                    <!--Contact Form-->
+                    <div class="row pt-4">
+                        <div class="col-3 form-container" style="border-right: 1px solid #d9d9d9;">
+                            <h2 class="form-title">Contact</h2>
+                        </div>
+                        <div class="col-9">
+                            <div class="row form-input">
+                                <div class="col-7 input-group">
+                                    <div class="input-group-addon">@</div>
+                                    <input name="camp[contact.email]" type="email" class="form-control" placeholder="Email">
+                                </div>
+                                <div class="col-5">
+                                    <input name="camp[contact.phone]" type="text" class="form-control" placeholder="Phone" >
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-7 input-group mr-auto">
+                                    <div class="input-group-addon">https://</div>
+                                    <input name="camp[contact.website]" type="text" class="form-control" placeholder="Website*" >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End Contact-->
+
+                    <!--Location Form-->
+                    <div class="row pt-4">
+                        <div class="col-3 form-container" style="border-right: 1px solid #d9d9d9;">
+                            <h2 class="form-title">Location</h2>
+                        </div>
+                        <div class="col-9">
+                            <div class="row form-input">
+                                <div class="col-4">
+                                    <input name="camp[location.country]" class="form-control" type="text" placeholder="Country" >
+                                </div>
+                                <div class="col-4">
+                                    <input name="camp[location.state]" class="form-control" type="text" placeholder="State" >
+                                </div>
+                                <div class="col-4">
+                                    <input name="camp[location.city]" class="form-control" type="text" placeholder="City" >
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-7">
+                                    <input name="camp[location.street]" class="form-control" type="text" placeholder="Street Number" >
+                                </div>
+                                <div class="col-5">
+                                    <input name="camp[location.postal]" class="form-control" type="text" placeholder="Postal Code" >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End Location-->
+                    <div class="col-9 pt-4 ml-auto form-input">
+                        <button type="submit" class="btn btn-primary btn-block">Add <i class="icon add"></i></button>
+                    </div>
+                </form>
+            </div>
+        </section>
+        <!--Social and newsletter-->
+        <% include ../partials/footer %>
+        <% include ../partials/script %>
+    </body>
+</html>
